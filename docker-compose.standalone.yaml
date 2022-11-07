@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  jobmanager:
+    image: zh3w4ng/wc:latest
+    hostname: jobmanager
+    ports:
+      - "8081:8081"
+    command: "standalone-job --job-classname jbcodeforce.p1.WordCountMain --input file:///home/wc.txt --output file:///home/out.csv"
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
+    volumes:
+        - ./my-flink/data/:/home
+  taskmanager:
+    image: zh3w4ng/wc:latest
+    hostname: taskmanager
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    scale: 2
+    volumes:
+        - ./my-flink/data/:/home
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2

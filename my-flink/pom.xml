@@ -76,6 +76,42 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>2.8.0</version>
+        <configuration>
+          <from>
+            <image>flink:java11</image>
+            <auth>
+              <username>zh3w4ng</username>
+              <password>YOUR_DOCKER_HUB_PASSWORD</password>
+            </auth>
+          </from>
+          <to>
+            <image>zh3w4ng/wc:latest</image>
+            <auth>
+              <username>zh3w4ng</username>
+              <password>YOUR_DOCKER_HUB_PASSWORD</password>
+            </auth>
+          </to>
+          <container>
+            <entrypoint>INHERIT</entrypoint>
+            <appRoot>/opt/flink/usrlib/app</appRoot>
+          </container>
+          <containerizingMode>packaged</containerizingMode>
+        </configuration>
+      <executions>
+        <execution>
+          <id>build-and-push-docker-image</id>
+          <phase>package</phase>
+          <goals>
+            <goal>build</goal>
+          </goals>
+        </execution>
+      </executions>
+
+      </plugin>
+      <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.platform.version}</version>
