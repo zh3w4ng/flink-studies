@@ -82,18 +82,11 @@
         <configuration>
           <from>
             <image>flink:java11</image>
-            <auth>
-              <username>zh3w4ng</username>
-              <password>YOUR_DOCKER_HUB_PASSWORD</password>
-            </auth>
           </from>
           <to>
-            <image>zh3w4ng/wc:latest</image>
-            <auth>
-              <username>zh3w4ng</username>
-              <password>YOUR_DOCKER_HUB_PASSWORD</password>
-            </auth>
+            <image>localhost:5050/wc:latest</image>
           </to>
+	  <allowInsecureRegistries>true</allowInsecureRegistries>
           <container>
             <entrypoint>INHERIT</entrypoint>
             <appRoot>/opt/flink/usrlib/app</appRoot>
